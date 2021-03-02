@@ -20,7 +20,13 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,7 +42,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavType
-import androidx.navigation.compose.*
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
+import androidx.navigation.compose.navigate
+import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.example.androiddevchallenge.ui.theme.typography
 
@@ -74,7 +84,7 @@ fun ComposeNavigation() {
         }
         composable(
             "puppy_detail/{puppyId}",
-            arguments = listOf(navArgument("puppyId") {type = NavType.IntType})
+            arguments = listOf(navArgument("puppyId") { type = NavType.IntType })
         ) { backStackEntry ->
             PuppyDetail(
                 puppyId = backStackEntry.arguments?.getInt("puppyId")
@@ -99,20 +109,28 @@ fun PuppyList(
                     }
                     .padding(horizontal = 16.dp, vertical = 8.dp)
             ) {
-                Image(painter = painterResource(id = puppy.image),
-                    contentDescription = R.string.image_content_description.toString(), 
-                    contentScale = ContentScale.Crop, 
+                Image(
+                    painter = painterResource(id = puppy.image),
+                    contentDescription = R.string.image_content_description.toString(),
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .height(200.dp)
                         .fillMaxWidth()
-                        .clip(shape = RoundedCornerShape(8.dp)))
-                
-                Text(text = puppy.name,
-                    style = typography.h6)
-                Text(text = puppy.breed,
-                    style = typography.body2)
-                Text(text = puppy.location,
-                    style = typography.body2)
+                        .clip(shape = RoundedCornerShape(8.dp))
+                )
+
+                Text(
+                    text = puppy.name,
+                    style = typography.h6
+                )
+                Text(
+                    text = puppy.breed,
+                    style = typography.body2
+                )
+                Text(
+                    text = puppy.location,
+                    style = typography.body2
+                )
             }
         }
     }
@@ -133,44 +151,63 @@ fun PuppyDetail(
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(shape = RoundedCornerShape(8.dp)),
-            contentScale = ContentScale.Crop)
+            contentScale = ContentScale.Crop
+        )
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(text = puppy.name,
+        Text(
+            text = puppy.name,
             style = typography.h6,
-            fontWeight = FontWeight.Bold)
-        
+            fontWeight = FontWeight.Bold
+        )
+
         Row {
             Column {
-                Text(text = "Breed",
+                Text(
+                    text = "Breed",
                     style = typography.body2,
-                    fontWeight = FontWeight.Bold)
-                Text(text = "Location",
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = "Location",
                     style = typography.body2,
-                    fontWeight = FontWeight.Bold)
-                Text(text = "Sex",
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = "Sex",
                     style = typography.body2,
-                    fontWeight = FontWeight.Bold)
+                    fontWeight = FontWeight.Bold
+                )
             }
-            
+
             Column(
                 modifier = Modifier.padding(start = 16.dp)
             ) {
-                Text(text = puppy.breed,
-                    style = typography.body2)
-                Text(text = puppy.location,
-                    style = typography.body2)
-                Text(text = puppy.sex,
-                    style = typography.body2)
+                Text(
+                    text = puppy.breed,
+                    style = typography.body2
+                )
+                Text(
+                    text = puppy.location,
+                    style = typography.body2
+                )
+                Text(
+                    text = puppy.sex,
+                    style = typography.body2
+                )
             }
         }
 
-        Text(text = "Description",
+        Text(
+            text = "Description",
             style = typography.body2,
-            fontWeight = FontWeight.Bold)
+            fontWeight = FontWeight.Bold
+        )
 
-        Text(text = puppy.description,
-            style = typography.body2)
+        Text(
+            text = puppy.description,
+            style = typography.body2
+        )
     }
 }
